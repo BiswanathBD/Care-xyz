@@ -4,16 +4,24 @@ import Title from "./Title";
 
 const About = () => {
   return (
-    <section className="py-8 md:py-16 bg-white">
+    <section className="pt-8 md:pt-16 mt-8 bg-white">
       <Container>
-        <div className="text-center">
+        <div>
           {/* title */}
-          <Title>About Us</Title>
+          <Title>
+            <div>
+              <h2>About Us</h2>
+              <p className="text-gray-600 text-sm font-medium">
+                Building trust through compassionate and reliable caregiving
+                services for every family.
+              </p>
+            </div>
+          </Title>
 
           {/* description */}
-          <div className="grid md:grid-cols-2 justify-between items-center gap-4 md:gap-8 mt-6">
+          <div className="grid gap-4 md:gap-8 mt-8 text-sm md:text-lg lg:text-xl leading-relaxed">
             <p
-              className="text-sm md:text-lg leading-relaxed p-4 md:p-8 rounded-lg h-full my-auto"
+              className="p-4 md:p-8 rounded-lg"
               style={{ boxShadow: "0 0px 30px rgba(0,0,0,0.06)" }}
             >
               <span className="font-semibold text-[#fc8298]">Care.xyz</span> is
@@ -25,7 +33,7 @@ const About = () => {
             </p>
 
             <p
-              className="h-full text-sm md:text-lg leading-relaxed p-4 md:p-8 rounded-lg"
+              className="p-4 md:p-8 rounded-lg"
               style={{ boxShadow: "0 0px 30px rgba(0,0,0,0.06)" }}
             >
               Our platform enables users to easily explore services, choose
