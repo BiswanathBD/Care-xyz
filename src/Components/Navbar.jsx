@@ -1,4 +1,4 @@
-import Container from "@/Container";
+import Container from "@/Components/Container";
 import Link from "next/link";
 import React from "react";
 import logo from "../../public/logo.png";

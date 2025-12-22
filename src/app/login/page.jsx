@@ -1,4 +1,4 @@
-import Container from "@/Container";
+import Container from "@/Components/Container";
 import React from "react";
 
 const Login = () => {

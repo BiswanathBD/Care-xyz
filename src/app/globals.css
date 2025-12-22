@@ -1,31 +1,42 @@
 @import "tailwindcss";
 
+button,
+a {
+  cursor: pointer;
+}
+
 .btn-primary {
   padding: 6px 16px;
   background-color: #fc8298;
   color: white;
+  border-radius: 2px;
   font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-  background-color: #d36f82;
+  background-color: #fc8298d0;
 }
 
 .btn-secondary {
   padding: 6px 16px;
   background-color: #5bb4b7;
   color: white;
+  border-radius: 2px;
   font-weight: 600;
+  transition: all 0.2s ease;
 }
 
 .btn-secondary:hover {
-  background-color: #52a1a4;
+  background-color: #5bb4b7d0;
 }
 
 nav a {
   color: #5bb4b7;
   font-weight: 500;
+  transition: all 0.1s ease;
 }
+
 nav a:hover {
   color: #fc8298;
 }
