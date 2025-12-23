@@ -51,7 +51,7 @@ const stats = [
 
 const Testimonials = () => {
   return (
-    <section className="pt-8 md:pt-16">
+    <section className="pt-8 md:pt-16 mb-12 md:mb-24">
       <Container>
         {/* title */}
         <Title>

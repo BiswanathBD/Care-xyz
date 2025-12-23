@@ -38,8 +38,12 @@ const Navbar = () => {
 
             {/* sign */}
             <div className="flex justify-end gap-2">
-              <button className="btn-secondary">Login</button>
-              <button className="btn-primary">Register</button>
+              <Link href={"/login"}>
+                <button className="btn-secondary">Login</button>
+              </Link>
+              <Link href={"/register"}>
+                <button className="btn-primary">Register</button>
+              </Link>
             </div>
           </div>
         </div>

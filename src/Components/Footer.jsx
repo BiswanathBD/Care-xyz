@@ -5,13 +5,13 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#5bb4b7] text-white pt-14 mt-12 md:mt-24">
+    <footer className="bg-[#5bb4b7] text-white pt-14 border-t border-white/20">
       <Container>
         {/* Top */}
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 pb-10">
 
           <p className="text-sm text-white/90 leading-relaxed max-w-xs">
-            <span className="text-2xl font-semibold text-[#f89aac]">
+            <span className="text-2xl font-bold text-[#f89aac]">
               Care.xyz
             </span>{" "}
             is a trusted caregiving platform connecting families with verified
