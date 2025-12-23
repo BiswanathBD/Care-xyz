@@ -5,6 +5,7 @@ import React from "react";
 import heroImg from "../../../../public/hero.png";
 import { FcGoogle } from "react-icons/fc";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 const Login = () => {
   const handleLogin = (e) => {
@@ -40,8 +41,8 @@ const Login = () => {
               <p className="text-sm font-medium text-white">
                 Login to continue managing your care services
               </p>
+
               <form onSubmit={handleLogin}>
-                {" "}
                 {/* email */}
                 <div className="form mt-4 md:mt-8">
                   <input type="text" name="email" className="input" required />
@@ -63,7 +64,7 @@ const Login = () => {
                 </button>
               </form>
 
-              {/* Divider */}
+              {/* divider */}
               <div className="my-6 flex items-center gap-4">
                 <span className="flex-1 h-px bg-white/20"></span>
                 <span className="text-sm text-[#fc8298]">OR</span>
@@ -75,6 +76,13 @@ const Login = () => {
                 <FcGoogle size={20} />
                 Continue with Google
               </button>
+
+              <p className="text-white text-sm font-medium text-center mt-4 md:mt-8">
+                Already have account?{" "}
+                <Link href={"/register"} className="text-[#fc8298] font-semibold">
+                  Register
+                </Link>
+              </p>
             </div>
           </div>
         </div>
