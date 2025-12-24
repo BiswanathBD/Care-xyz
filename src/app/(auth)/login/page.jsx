@@ -1,26 +1,105 @@
 "use client";
 import Container from "@/Components/Container";
 import Image from "next/image";
-import React from "react";
+import React, { use } from "react";
 import heroImg from "../../../../public/hero.png";
 import { FcGoogle } from "react-icons/fc";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { AuthContext } from "@/auth/AuthContext";
+import { useRouter } from "next/navigation";
+import Loading from "@/app/loading";
 
 const Login = () => {
+  const { user, setUser, passwordSignin, googleSignIn, loading } =
+    use(AuthContext);
+  const router = useRouter();
+
+  if (loading) return <Loading />;
+
+  if (user) {
+    router.push("/");
+  }
+
   const handleLogin = (e) => {
     e.preventDefault();
-    const email = e.target.email.value;
+
+    const email = e.target.email.value.trim();
     const password = e.target.password.value;
 
-    const isEmail = email.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailRegex.test(isEmail)) {
-      toast.error("Please Enter Valid Email");
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email");
       return;
     }
-    console.log({ email, password });
+
+    const loginUser = async () => {
+      const res = await passwordSignin(email, password);
+
+      if (!res?.user?.accessToken) {
+        throw new Error("Login failed");
+      }
+
+      const dbRes = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_SERVER_DOMAIN
+        }/user?email=${encodeURIComponent(email)}`
+      );
+
+      const userData = await dbRes.json();
+
+      if (!userData) {
+        throw new Error("User not found");
+      }
+
+      setUser(userData);
+    };
+
+    toast.promise(loginUser(), {
+      loading: "Logging in...",
+      success: "Login successful!",
+      error: (err) => err.message || "Login failed",
+    });
+  };
+
+  const handleGoogleLogin = () => {
+    const googleLoginFlow = async () => {
+      const res = await googleSignIn();
+      const user = res.user;
+
+      const newUser = {
+        name: user.displayName || "",
+        email: user.email,
+        contactNo: user.phoneNumber || "",
+        NID_No: "",
+      };
+
+      const saveRes = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/user`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newUser),
+        }
+      );
+
+      const saveData = await saveRes.json();
+
+      const userRes = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_SERVER_DOMAIN
+        }/user?email=${encodeURIComponent(user.email)}`
+      );
+      const userData = await userRes.json();
+
+      setUser(userData);
+    };
+
+    toast.promise(googleLoginFlow(), {
+      loading: "Signing in with Google...",
+      success: "Login successful!",
+      error: (err) => err.message || "Google login failed",
+    });
   };
 
   return (
@@ -72,14 +151,20 @@ const Login = () => {
               </div>
 
               {/* Google Login */}
-              <button className="flex items-center justify-center gap-2 btn-primary w-full bg-transparent! border border-white/40 hover:bg-white/30!">
+              <button
+                onClick={handleGoogleLogin}
+                className="flex items-center justify-center gap-2 btn-primary w-full bg-transparent! border border-white/40 hover:bg-white/30!"
+              >
                 <FcGoogle size={20} />
                 Continue with Google
               </button>
 
               <p className="text-white text-sm font-medium text-center mt-4 md:mt-8">
                 Already have account?{" "}
-                <Link href={"/register"} className="text-[#fc8298] font-semibold">
+                <Link
+                  href={"/register"}
+                  className="text-[#fc8298] font-semibold"
+                >
                   Register
                 </Link>
               </p>

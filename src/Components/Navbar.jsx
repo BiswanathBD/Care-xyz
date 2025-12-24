@@ -1,11 +1,15 @@
+"use client";
 import Container from "@/Components/Container";
 import Link from "next/link";
-import React from "react";
+import React, { use } from "react";
 import logo from "../../public/logo.png";
 import Image from "next/image";
 import { FaBars } from "react-icons/fa";
+import { AuthContext } from "@/auth/AuthContext";
 
 const Navbar = () => {
+  const { user, userSignOut } = use(AuthContext);
+
   return (
     <div className="py-2 bg-white">
       <Container>
@@ -33,18 +37,24 @@ const Navbar = () => {
               <Link href={"/"}>Home</Link>
               <Link href={"/services"}>Services</Link>
               <Link href={"/about"}>About</Link>
-              {/* <Link href={"/my-bookings"}>My Booking</Link> */}
+              {user && <Link href={"/my-bookings"}>My Booking</Link>}
             </nav>
 
             {/* sign */}
-            <div className="flex justify-end gap-2">
-              <Link href={"/login"}>
-                <button className="btn-secondary">Login</button>
-              </Link>
-              <Link href={"/register"}>
-                <button className="btn-primary">Register</button>
-              </Link>
-            </div>
+            {user ? (
+              <button onClick={() => userSignOut()} className="btn-primary">
+                Log Out
+              </button>
+            ) : (
+              <div className="flex justify-end gap-2">
+                <Link href={"/login"}>
+                  <button className="btn-secondary">Login</button>
+                </Link>
+                <Link href={"/register"}>
+                  <button className="btn-primary">Register</button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </Container>

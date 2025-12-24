@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/Components/Navbar";
 import Footer from "@/Components/Footer";
 import { Toaster } from "react-hot-toast";
+import AuthProvider from "@/auth/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,9 +15,38 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "Care.xyz | Care given services",
-  description: "get care service at home",
+export const generateMetadata = ({ title, description }) => {
+  return {
+    title: title ? `${title} | Care.xyz` : "Care.xyz | Trusted Care Services",
+    description:
+      description ||
+      "Find reliable babysitting, elderly, and home care services tailored to your needs, with verified caregivers and secure bookings.",
+    openGraph: {
+      title: title ? `${title} | Care.xyz` : "Care.xyz | Trusted Care Services",
+      description:
+        description ||
+        "Find reliable babysitting, elderly, and home care services tailored to your needs, with verified caregivers and secure bookings.",
+      url: "https://yourdomain.com",
+      siteName: "Care.xyz",
+      type: "website",
+      images: [
+        {
+          url: "/og-image.jpg", // Add a default Open Graph image
+          width: 1200,
+          height: 630,
+          alt: "Care.xyz – Trusted Care Services",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title ? `${title} | Care.xyz` : "Care.xyz | Trusted Care Services",
+      description:
+        description ||
+        "Find reliable babysitting, elderly, and home care services tailored to your needs, with verified caregivers and secure bookings.",
+      images: ["/og-image.jpg"],
+    },
+  };
 };
 
 export default function RootLayout({ children }) {
@@ -25,11 +55,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <Navbar />
-        <div className="grow">{children}</div>
+        <AuthProvider>
+          <Navbar />
+          <div className="grow">{children}</div>
 
-        <Footer />
-        <Toaster/>
+          <Footer />
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
   );

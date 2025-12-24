@@ -1,33 +1,49 @@
 "use client";
 import Container from "@/Components/Container";
 import Image from "next/image";
-import React from "react";
+import React, { use } from "react";
 import heroImg from "../../../../public/hero.png";
 import { FcGoogle } from "react-icons/fc";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { AuthContext } from "@/auth/AuthContext";
+import { useRouter } from "next/navigation";
+import Loading from "@/app/loading";
 
 const Register = () => {
+  const { user, setUser, passwordSignUp, googleSignIn, loading } =
+    use(AuthContext);
+  const router = useRouter();
+
+  if (loading) {
+    return <Loading />;
+  }
+  if (user) {
+    return router.push("/");
+  }
+
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
-
-    const nid = form.nid.value.trim();
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const contact = form.contact.value.trim();
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
 
+    const newUser = {
+      nid: form.nid.value.trim(),
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      contact: form.contact.value.trim(),
+    };
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(newUser.email)) {
       toast.error("Please enter a valid email");
       return;
     }
 
     // number validation
-    if (contact.length !== 11) {
+    if (newUser.contact.length !== 11) {
       toast.error("Enter valid Bangladeshi number");
       return;
     }
@@ -45,7 +61,81 @@ const Register = () => {
       return;
     }
 
-    console.log({ nid, name, email, contact, password });
+    const registerUser = async () => {
+      const res = await passwordSignUp(newUser.email, password);
+
+      if (!res?.user?.accessToken) {
+        throw new Error("Authentication failed");
+      }
+
+      const saveRes = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/user`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newUser),
+        }
+      );
+
+      const data = await saveRes.json();
+
+      if (!data?.insertedId) {
+        throw new Error("User not saved");
+      }
+
+      const userRes = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/user?email=${res.user.email}`
+      );
+      const userData = await userRes.json();
+
+      setUser(userData);
+    };
+
+    toast.promise(registerUser(), {
+      loading: "Creating account...",
+      success: "Registration successful!",
+      error: (err) => err.message || "Registration failed",
+    });
+  };
+
+  const handleGoogleLogin = () => {
+    const googleLoginFlow = async () => {
+      const res = await googleSignIn();
+      const user = res.user;
+
+      const newUser = {
+        name: user.displayName || "",
+        email: user.email,
+        contactNo: user.phoneNumber || "",
+        NID_No: "",
+      };
+
+      const saveRes = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/user`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newUser),
+        }
+      );
+
+      const saveData = await saveRes.json();
+
+      const userRes = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_SERVER_DOMAIN
+        }/user?email=${encodeURIComponent(user.email)}`
+      );
+      const userData = await userRes.json();
+
+      setUser(userData);
+    };
+
+    toast.promise(googleLoginFlow(), {
+      loading: "Signing in with Google...",
+      success: "Login successful!",
+      error: (err) => err.message || "Google login failed",
+    });
   };
 
   return (
@@ -76,7 +166,7 @@ const Register = () => {
                   </div>
                   <div className="form md:col-span-3 mt-8">
                     <input
-                      type="email"
+                      type="text"
                       name="email"
                       className="input"
                       required
@@ -136,7 +226,10 @@ const Register = () => {
               </div>
 
               {/* Google Register */}
-              <button className="flex items-center justify-center gap-2 btn-primary w-full bg-transparent! border border-white/40 hover:bg-white/30!">
+              <button
+                onClick={handleGoogleLogin}
+                className="flex items-center justify-center gap-2 btn-primary w-full bg-transparent! border border-white/40 hover:bg-white/30!"
+              >
                 <FcGoogle size={20} />
                 Continue with Google
               </button>
