@@ -97,7 +97,7 @@ const Testimonials = () => {
           {stats.map((stat) => (
             <div
               key={stat.id}
-              className="p-5 text-white bg-[#5bb4b7] flex items-center justify-between gap-4 flex-1 rounded-2xl text-nowrap"
+              className="p-5 text-white bg-[#5bb4b7] flex items-center justify-between gap-4 flex-1 rounded-2xl"
               style={{ boxShadow: "0 12px 40px rgba(0,0,0,0.15)" }}
             >
               <div className="flex gap-2 items-center">
