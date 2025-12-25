@@ -1,9 +1,17 @@
+"use client"
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+motion;
 
-export default function ServiceCard({ service }) {
+export default function ServiceCard({ service, i }) {
   return (
-    <article className="group rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col md:flex-row">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.3 * i, ease: "easeOut" }}
+      className="group rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col md:flex-row"
+    >
       {/* Image */}
       <div className="relative w-full md:w-1/3 aspect-square md:aspect-auto">
         <Image
@@ -27,17 +35,17 @@ export default function ServiceCard({ service }) {
         {/* Price + Button */}
         <div className="flex items-center justify-between pt-4">
           <span className="text-[#fc8298] font-semibold">
-            From {service.serviceCharge}/h
+            ৳{service.serviceCharge}/h
           </span>
 
           <Link
             href={`/services/${service.id}`}
             className="text-nowrap btn-secondary"
           >
-           Details
+            Details
           </Link>
         </div>
       </div>
-    </article>
+    </motion.div>
   );
 }

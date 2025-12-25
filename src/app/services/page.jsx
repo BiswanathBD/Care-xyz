@@ -3,7 +3,7 @@ import ServiceCard from "@/Components/ServiceCard";
 import Title from "@/Components/Title";
 
 const getServices = async () => {
-  const res = await fetch("http://localhost:3000/services.json");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/services`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch services");
@@ -26,9 +26,9 @@ export default async function Services() {
           </p>
         </Title>
 
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 mt-8">
-          {services.map((service) => (
-            <ServiceCard key={service.id} service={service} />
+        <div className="grid lg:grid-cols-2 xl:grid-cols-3 justify-center gap-8 mt-8">
+          {services.map((service, i) => (
+            <ServiceCard key={service.id} service={service} i={i} />
           ))}
         </div>
       </Container>

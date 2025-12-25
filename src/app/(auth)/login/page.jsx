@@ -9,6 +9,8 @@ import Link from "next/link";
 import { AuthContext } from "@/auth/AuthContext";
 import { useRouter } from "next/navigation";
 import Loading from "@/app/loading";
+import { motion } from "framer-motion";
+motion;
 
 const Login = () => {
   const { user, setUser, passwordSignin, googleSignIn, loading } =
@@ -107,12 +109,22 @@ const Login = () => {
       <Container>
         <div className="grid md:grid-cols-2 gap-6 lg:gap-12 items-center">
           {/* image */}
-          <div className="hidden md:block">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
+            className="hidden lg:block"
+          >
             <Image src={heroImg} alt="Caregiving service" className="w-full" />
-          </div>
+          </motion.div>
 
           {/* login form */}
-          <div className="border-l-2 border-white/30 py-2">
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="border-l-2 border-white/30 py-2"
+          >
             <div className="p-4 md:p-8 xl:p-12 bg-linear-to-r md:from-white/10">
               <h3 className="text-2xl md:text-4xl font-bold text-[#fc8298]">
                 Welcome Back
@@ -169,7 +181,7 @@ const Login = () => {
                 </Link>
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
       </Container>
     </section>

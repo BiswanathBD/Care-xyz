@@ -15,39 +15,39 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const generateMetadata = ({ title, description }) => {
-  return {
-    title: title ? `${title} | Care.xyz` : "Care.xyz | Trusted Care Services",
-    description:
-      description ||
-      "Find reliable babysitting, elderly, and home care services tailored to your needs, with verified caregivers and secure bookings.",
-    openGraph: {
-      title: title ? `${title} | Care.xyz` : "Care.xyz | Trusted Care Services",
-      description:
-        description ||
-        "Find reliable babysitting, elderly, and home care services tailored to your needs, with verified caregivers and secure bookings.",
-      url: "https://yourdomain.com",
-      siteName: "Care.xyz",
-      type: "website",
-      images: [
-        {
-          url: "/og-image.jpg", // Add a default Open Graph image
-          width: 1200,
-          height: 630,
-          alt: "Care.xyz – Trusted Care Services",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: title ? `${title} | Care.xyz` : "Care.xyz | Trusted Care Services",
-      description:
-        description ||
-        "Find reliable babysitting, elderly, and home care services tailored to your needs, with verified caregivers and secure bookings.",
-      images: ["/og-image.jpg"],
-    },
-  };
-};
+// export const generateMetadata = ({ title, description }) => {
+//   return {
+//     title: title ? `${title} | Care.xyz` : "Care.xyz | Trusted Care Services",
+//     description:
+//       description ||
+//       "Find reliable babysitting, elderly, and home care services tailored to your needs, with verified caregivers and secure bookings.",
+//     openGraph: {
+//       title: title ? `${title} | Care.xyz` : "Care.xyz | Trusted Care Services",
+//       description:
+//         description ||
+//         "Find reliable babysitting, elderly, and home care services tailored to your needs, with verified caregivers and secure bookings.",
+//       url: "https://yourdomain.com",
+//       siteName: "Care.xyz",
+//       type: "website",
+//       images: [
+//         {
+//           url: "/og-image.jpg", // Add a default Open Graph image
+//           width: 1200,
+//           height: 630,
+//           alt: "Care.xyz – Trusted Care Services",
+//         },
+//       ],
+//     },
+//     twitter: {
+//       card: "summary_large_image",
+//       title: title ? `${title} | Care.xyz` : "Care.xyz | Trusted Care Services",
+//       description:
+//         description ||
+//         "Find reliable babysitting, elderly, and home care services tailored to your needs, with verified caregivers and secure bookings.",
+//       images: ["/og-image.jpg"],
+//     },
+//   };
+// };
 
 export default function RootLayout({ children }) {
   return (

@@ -2,10 +2,11 @@ import Container from "@/Components/Container";
 import Title from "@/Components/Title";
 import Image from "next/image";
 import Link from "next/link";
+  import { FaFaceSadTear } from "react-icons/fa6";
 
 // Fetch all services
 const getServices = async () => {
-  const res = await fetch(`http://localhost:3000/services.json`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/services`);
 
   if (!res.ok) throw new Error("Failed to load services");
   return res.json();
@@ -54,16 +55,20 @@ export default async function ServiceDetails({ params }) {
   const { slug } = await params;
   const service = await services.find((s) => s.id === slug);
 
+
   if (!service) {
     return (
       <Container>
-        <h1 className="text-2xl font-bold mt-10 text-center">
-          Service Not Found
-        </h1>
-        <div className="text-center mt-6">
-          <Link href="/" className="btn-primary px-6 py-2">
-            Go Back Home
-          </Link>
+        <div className="py-12 flex flex-col justify-center items-center">
+          <FaFaceSadTear size={48} color="#5bb4b780"/>
+          <h1 className="text-2xl text-gray-300 font-bold mt-4">
+            Service Not Found
+          </h1>
+          <div className="mt-6">
+            <Link href="/" className="btn-primary px-6 py-2">
+              Go Back Home
+            </Link>
+          </div>
         </div>
       </Container>
     );
