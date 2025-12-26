@@ -39,7 +39,8 @@ const BookService = () => {
       // 15% vat extra
       const serviceCharge = service.serviceCharge * 1.15;
       const charge = serviceCharge * hours * days;
-      setCost(charge);
+      const roundedCharge = Math.round(charge);
+      setCost(roundedCharge);
     }
   }, [hours, days, district, service]);
 
