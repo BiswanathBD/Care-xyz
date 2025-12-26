@@ -89,8 +89,8 @@ const Register = () => {
         `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/user?email=${res.user.email}`
       );
       const userData = await userRes.json();
-
       setUser(userData);
+      router.push("/my-bookings");
     };
 
     toast.promise(registerUser(), {
