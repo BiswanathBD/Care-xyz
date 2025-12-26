@@ -2,7 +2,7 @@ import Container from "@/Components/Container";
 import Title from "@/Components/Title";
 import Image from "next/image";
 import Link from "next/link";
-  import { FaFaceSadTear } from "react-icons/fa6";
+import { FaFaceSadTear } from "react-icons/fa6";
 
 // Fetch all services
 const getServices = async () => {
@@ -80,8 +80,7 @@ export default async function ServiceDetails({ params }) {
         <Title>
           <h2>Service Details</h2>
           <p className="text-gray-600 text-sm font-medium">
-            Comprehensive details and features of the selected caregiving
-            service.
+            {service.shortDescription}
           </p>
         </Title>
 
@@ -128,9 +127,9 @@ export default async function ServiceDetails({ params }) {
             <div className="flex gap-4 mt-4">
               <Link
                 href="/services"
-                className="btn-secondary text-center w-2/4 bg-white! text-[#5bb4b7]! border border-[#5bb4b7] hover:bg-[#5bb4b7]! hover:text-white!"
+                className="btn-secondary text-center text-nowrap sm:w-2/4 bg-white! text-[#5bb4b7]! border border-[#5bb4b7] hover:bg-[#5bb4b7]! hover:text-white!"
               >
-                Go Back
+                Back to  Services
               </Link>
 
               <Link
