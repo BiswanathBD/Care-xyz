@@ -334,12 +334,12 @@ const BookService = () => {
                 <span className="text-2xl md:text-4xl font-bold text-[#fc8298]">
                   Total cost: ৳{cost}
                 </span>
-                <span className="absolute text-xs px-2 text-white bg-[#fc8298] rounded-sm -top-2.5 left-4">
+                <span className="absolute text-xs px-2 text-white bg-[#fc8298] rounded-sm -top-2 left-4">
                   ৳{service.serviceCharge}/hour
                 </span>
                 {/* vat */}
                 {district && district !== "Dhaka" && (
-                  <span className="absolute text-xs px-2 text-white bg-[#fc8298] rounded-sm -top-2.5 left-22">
+                  <span className="absolute text-xs px-2 text-white bg-[#fc8298] rounded-sm -top-2 left-22">
                     +15% Vat
                   </span>
                 )}

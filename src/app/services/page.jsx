@@ -14,7 +14,6 @@ const getServices = async () => {
 
 export default async function Services() {
   const services = await getServices();
-  console.log(services);
 
   return (
     <section className="py-16">

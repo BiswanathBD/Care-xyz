@@ -14,7 +14,6 @@ const MyBookings = () => {
   const [loader, setLoader] = useState(true);
   const [bookings, setBookings] = useState(true);
   const router = useRouter();
-  console.log(bookings);
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/bookings/${user?.email}`)
