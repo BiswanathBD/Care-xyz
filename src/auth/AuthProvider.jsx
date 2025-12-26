@@ -10,12 +10,14 @@ import {
 } from "firebase/auth";
 import { AuthContext } from "./AuthContext";
 import { auth } from "../../firebase.config";
+import { useRouter } from "next/navigation";
 
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -28,6 +30,7 @@ const AuthProvider = ({ children }) => {
           );
           const data = await res.json();
           setUser(data);
+          router.push("/my-bookings");
         } catch (error) {
           console.error("Failed to fetch user:", error);
           setUser(null);
