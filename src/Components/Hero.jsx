@@ -1,8 +1,12 @@
+"use client";
 import Container from "@/Components/Container";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import heroImg from "../../public/hero.png";
+import Title from "./Title";
+import { motion } from "framer-motion";
+motion;
 
 const Hero = () => {
   return (
@@ -10,12 +14,21 @@ const Hero = () => {
       <Container>
         <div className="grid md:grid-cols-2 gap-4 lg:gap-8 xl:gap-16 items-center">
           {/* image */}
-          <div className="flex justify-center -mb-4">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
+            className="flex justify-center -mb-4"
+          >
             <Image src={heroImg} alt="Caregiving service" className="w-full" />
-          </div>
+          </motion.div>
 
           {/* content */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             <h1 className="text-3xl lg:text-5xl xl:text-7xl font-bold">
               Trusted Care for Your
               <span className="text-[#fe94a8]"> Loved</span> Ones
@@ -40,7 +53,7 @@ const Hero = () => {
                 Learn More
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </Container>
     </section>

@@ -113,7 +113,7 @@ const Login = () => {
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
-            className="hidden lg:block"
+            className="hidden md:block"
           >
             <Image src={heroImg} alt="Caregiving service" className="w-full" />
           </motion.div>
